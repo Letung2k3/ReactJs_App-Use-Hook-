@@ -1,39 +1,21 @@
 import React from "react";
+import UserInfo from "./UserInfo";
+import DisplayInfo from "./DisplayInfo";
 class MyComponent extends React.Component {
         state = {
-                name: "",
-                age: 16,
+                listUsers: [
+                        { id: 1, name: "Doatq", age: 18 },
+                        { id: 2, name: "Doatq23", age: 19 },
+                        { id: 3, name: "Doatq2", age: 17 },
+                ]
         }
-
-        handleBtnMouseOver = (Event) => {
-                console.log(Event.target);
-        }
-        handleOnChangeInput = (event) => this.setState({
-                name: event.target.value,
-                age: Math.floor(Math.random() * 100) + 1
-        })
-
-        handleSubmit = (Event) => {
-                Event.preventDefault();
-                console.log(">>Check form submit!")
-        }
-
         render() {
-                let { name, age, id } = this.state
                 return (
                         <>
-                                <div >
-                                        My name is {name} and age: {age}
-                                        <form onClick={(event) => this.handleSubmit(event)}>
-                                                <input
-                                                        type="text"
-                                                        onChange={(Event) => this.handleOnChangeInput(Event)}
-                                                        placeholder="Input name..."
-                                                />
-                                                <button>Submit</button>
-                                        </form>
-                                </div>
-
+                                <UserInfo />
+                                <br />
+                                <br />
+                                <DisplayInfo listUsers={this.state.listUsers} />
                         </>
                 )
         }
