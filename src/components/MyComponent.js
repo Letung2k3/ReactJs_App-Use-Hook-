@@ -9,13 +9,28 @@ class MyComponent extends React.Component {
                         { id: 3, name: "Doatq2", age: 17 },
                 ]
         }
+        addUser = (obj) => {
+                this.setState({
+                        listUsers: [...this.state.listUsers, obj]
+                })
+        }
+        deleteUser = (obj) => {
+                let copyListUser = this.state.listUsers;
+                copyListUser = copyListUser.filter((item) => item.id !== obj.id);
+                this.setState({
+                        listUsers: copyListUser
+                })
+        }
         render() {
                 return (
                         <>
-                                <UserInfo />
-                                <br />
-                                <br />
-                                <DisplayInfo listUsers={this.state.listUsers} />
+                                <UserInfo
+                                        addUser={this.addUser}
+                                />
+                                <DisplayInfo
+                                        listUsers={this.state.listUsers}
+                                        deleteUser={this.deleteUser}
+                                />
                         </>
                 )
         }

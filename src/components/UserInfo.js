@@ -1,4 +1,5 @@
 import React from "react";
+import '../Assets/UserInfo.scss'
 class UserInfo extends React.Component {
         state = {
                 name: "Dotatq",
@@ -16,18 +17,22 @@ class UserInfo extends React.Component {
 
         handleSubmit = (Event) => {
                 Event.preventDefault();
-                console.log(">>Check form submit!")
-                console.log(">>>this.state: ", this.state)
         }
-
+        handleAddUser = (event) => {
+                this.props.addUser({
+                        id: Math.floor(Math.random() * 1000) + 1,
+                        name: this.state.name,
+                        age: this.state.age
+                })
+        }
         render() {
-                let { name, age, id } = this.state
+                let { name, age } = this.state
                 return (
-                        <div>
-                                My name is {name} and age: {age}
-                                <form onClick={(event) => this.handleSubmit(event)}>
-                                        <label>Name</label>
+                        <div className="container">
+                                <form onClick={(event) => this.handleSubmit(event)} className="form_submit">
+                                        <label className="label_name">Name  &nbsp;</label>
                                         <input
+                                                className="form_input"
                                                 value={name}
                                                 type="text"
                                                 onChange={(Event) => this.handleOnChangeInputName(Event)}
@@ -35,15 +40,16 @@ class UserInfo extends React.Component {
                                         />
                                         &nbsp;
                                         &nbsp;
-                                        <label>Age</label>
+                                        <label className="label_name">Age  &nbsp;</label>
                                         <input
+                                                className="form_input"
                                                 value={age}
                                                 type="text"
                                                 onChange={(Event) => this.handleOnChangeInputAge(Event)}
                                                 placeholder="Input age..."
                                         />
-                                        <br />
-                                        <button>Submit</button>
+                                        &nbsp;
+                                        <button className="form_btn" onClick={(event) => this.handleAddUser(event)}>Add</button>
                                 </form>
                         </div>
 

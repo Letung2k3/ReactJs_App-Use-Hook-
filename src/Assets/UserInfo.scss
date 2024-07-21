@@ -1,0 +1,33 @@
+$myFontSize: 14px;
+$myFontLabel: 18px;
+
+.container {
+     font-family: Arial, Helvetica, sans-serif;
+     text-align: center;
+
+     .form_submit {
+
+          .label_name {
+               font-size: $myFontLabel;
+               font-weight: 600;
+          }
+
+          .form_input {
+               padding: 5px;
+               font-size: $myFontSize;
+          }
+
+          .form_btn {
+               font-size: $myFontSize;
+               padding: 6px 12px;
+               background-color: aquamarine;
+               color: #f70101;
+               font-weight: 600;
+          }
+
+          .form_btn:hover {
+               cursor: pointer;
+               opacity: 0.6;
+          }
+     }
+}

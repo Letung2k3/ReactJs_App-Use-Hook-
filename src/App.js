@@ -11,13 +11,11 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello world!
-        </p>
+
         <MyComponent />
-        <div>Count = {count}</div>
+        {/* <div>Count = {count}</div>
         <button onClick={() => dispatch(increaseCounter())}>Increase</button>
-        <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
+        <button onClick={() => dispatch(decreaseCounter())}>Decrease</button> */}
       </header>
     </div>
   );
