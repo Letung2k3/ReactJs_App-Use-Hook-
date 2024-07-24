@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../Assets/DisplayInfo.scss'
 import { Link } from "react-router-dom";
 // class DisplayInfo extends React.Component {
@@ -65,7 +65,7 @@ import { Link } from "react-router-dom";
 //         }
 // }
 const DisplayInfo = (props) => {
-        console.log(">>>Call render:")
+        console.log(">>>Call function:")
         let { listUsers, deleteUser } = props;
         const [isShowHideButton, setShowHideButton] = useState(true)
 
@@ -76,6 +76,12 @@ const DisplayInfo = (props) => {
         const handleHideShow = () => {
                 setShowHideButton(!isShowHideButton)
         }
+        useEffect(() => {
+                if (listUsers.length == 0) {
+                        alert("You deleted all list user!")
+                }
+                console.log(">>>Check used useEffect: ")
+        }, [listUsers])
         return (
                 <div className="container_display">
                         <div>
