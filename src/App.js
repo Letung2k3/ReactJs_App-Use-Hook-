@@ -1,12 +1,10 @@
 
 import './App.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
-import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
 const App = () => {
   return (
-    <div className="container">
-      <div className='text-center'>Hello world</div>
+    <div className="App">
+      <Header />
     </div>
   );
 }
