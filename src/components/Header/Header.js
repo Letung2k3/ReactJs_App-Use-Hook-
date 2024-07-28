@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink } from 'react-router-dom';
 const Header = () => {
      return (
           <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
@@ -10,9 +11,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                          <Nav className="me-auto">
-                              <Nav.Link href="#features">Home</Nav.Link>
-                              <Nav.Link href="#pricing">User</Nav.Link>
-                              <Nav.Link href="#pricing">Admin</Nav.Link>
+                              <NavLink to="/" className="nav-link">Home</NavLink>
+                              <NavLink to="/Users" className="nav-link">User</NavLink>
+                              <NavLink to="/Admins" className="nav-link">Admin</NavLink>
                          </Nav>
                          <Nav>
                               <NavDropdown title="Setttings " id="collapsible-nav-dropdown">
