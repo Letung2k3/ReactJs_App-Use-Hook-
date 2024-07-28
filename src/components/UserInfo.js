@@ -76,7 +76,7 @@ const UserInfo = (props) => {
                 addUser({
                         id: Math.floor(Math.random() * 1000) + 1,
                         name: name,
-                        age: age
+                        age:    age
                 })
         }
         return (
