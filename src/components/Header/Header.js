@@ -1,13 +1,14 @@
+import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
-const Header = () => {
+const Header = (props) => {
      return (
-          <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
+          <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <NavLink to="/" expand="lg" className="navbar-brand">React-Bootstrap</NavLink>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                          <Nav className="me-auto">
@@ -16,17 +17,13 @@ const Header = () => {
                               <NavLink to="/Admins" className="nav-link">Admin</NavLink>
                          </Nav>
                          <Nav>
-                              <NavDropdown title="Setttings " id="collapsible-nav-dropdown">
-                                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                                   <NavDropdown.Item href="#action/3.2">
-                                        Another action
-                                   </NavDropdown.Item>
-                                   <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                                   <NavDropdown.Divider />
-                                   <NavDropdown.Item href="#action/3.4">
-                                        Separated link
-                                   </NavDropdown.Item>
-                              </NavDropdown>
+                              <button className='btn-login'>Log in</button>
+                              {/* <NavDropdown title="Setttings " id="collapsible-nav-dropdown">
+                                   <NavDropdown.Item >Log in</NavDropdown.Item>
+                                   <NavDropdown.Item > Log out</NavDropdown.Item>
+                                   <NavDropdown.Item >Another</NavDropdown.Item>
+                              </NavDropdown> */}
+                              <button className='btn-signup'>Sign up</button>
                          </Nav>
                     </Navbar.Collapse>
                </Container>
