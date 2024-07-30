@@ -2,7 +2,7 @@
 import './App.scss';
 import Header from './components/Header/Header';
 import { Outlet, Link } from 'react-router-dom';
-const App = () => {
+const App = (props) => {
   return (
     <div className="app-container">
       <div className='header-container'>
@@ -14,7 +14,7 @@ const App = () => {
         </div>
 
         <div className='app-content'>
-          <Outlet />
+          <Outlet />  
         </div>
       </div>
     </div>
