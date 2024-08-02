@@ -8,8 +8,11 @@ import {
      SidebarFooter,
      SidebarContent,
 } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { FaGem, FaGithub } from 'react-icons/fa';
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg'
+import "./Admin.scss"
 const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
      return (
           <>
@@ -33,28 +36,29 @@ const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                                    whiteSpace: 'nowrap',
                               }}
                          >
-                              Admin
+                              <DiReact size={"3em"} color={"00bfff"} />
+                              <span>React admin</span>
                          </div>
                     </SidebarHeader>
 
                     <SidebarContent>
                          <Menu iconShape="circle">
                               <MenuItem
-                                   icon={<FaTachometerAlt />}
-                                   suffix={<span className="badge red">New</span>}
+                                   icon={<MdDashboard />}
+                              // suffix={<span className="badge red">New</span>}
                               >
                                    DashBoard
                               </MenuItem>
-                              <MenuItem icon={<FaGem />}>Components</MenuItem>
                          </Menu>
                          <Menu iconShape="circle">
                               <SubMenu
-                                   suffix={<span className="badge yellow">3</span>}
-                                   icon={<FaRegLaughWink />}
+
+                                   title={"Feature"}
+                                   icon={<FaGem />}
                               >
-                                   <MenuItem>1</MenuItem>
-                                   <MenuItem> 2</MenuItem>
-                                   <MenuItem> 3</MenuItem>
+                                   <MenuItem>1. Manager Users    </MenuItem>
+                                   <MenuItem>2. Manager Quiz</MenuItem>
+                                   <MenuItem>3. Manager Question</MenuItem>
                               </SubMenu>
                          </Menu>
                     </SidebarContent>
@@ -74,7 +78,7 @@ const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                               >
                                    <FaGithub />
                                    <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-
+                                        React Admin
                                    </span>
                               </a>
                          </div>
