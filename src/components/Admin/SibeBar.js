@@ -13,6 +13,7 @@ import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import sidebarBg from '../../assets/bg2.jpg'
 import "./Admin.scss"
+import { Link } from 'react-router-dom';
 const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
      return (
           <>
@@ -47,7 +48,7 @@ const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                                    icon={<MdDashboard />}
                               // suffix={<span className="badge red">New</span>}
                               >
-                                   DashBoard
+                                   <Link to="/Admins">DashBoard</Link>
                               </MenuItem>
                          </Menu>
                          <Menu iconShape="circle">
@@ -56,7 +57,7 @@ const SibeBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                                    title={"Feature"}
                                    icon={<FaGem />}
                               >
-                                   <MenuItem>1. Manager Users    </MenuItem>
+                                   <MenuItem><Link to="/Admins/manage-user">1. Manager User</Link></MenuItem>
                                    <MenuItem>2. Manager Quiz</MenuItem>
                                    <MenuItem>3. Manager Question</MenuItem>
                               </SubMenu>

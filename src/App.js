@@ -1,7 +1,7 @@
 
 import './App.scss';
 import Header from './components/Header/Header';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 const App = (props) => {
   return (
     <div className="app-container">
@@ -14,7 +14,7 @@ const App = (props) => {
         </div>
 
         <div className='app-content'>
-          <Outlet />  
+          <Outlet />
         </div>
       </div>
     </div>

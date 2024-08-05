@@ -2,6 +2,7 @@ import SibeBar from "./SibeBar"
 import "./Admin.scss"
 import { FaBars } from "react-icons/fa"
 import { useState } from "react"
+import { Outlet } from "react-router-dom"
 const Admin = () => {
      const [faBar, setFaBar] = useState(false)
      return (
@@ -10,7 +11,12 @@ const Admin = () => {
                     <SibeBar collapsed={faBar} />
                </div>
                <div className="admin-content">
-                    <FaBars onClick={() => setFaBar(!faBar)} />
+                    <div className="admin-header">
+                         <FaBars onClick={() => setFaBar(!faBar)} />
+                    </div>
+                    <div className="admin-main">
+                         <Outlet />
+                    </div>
                </div>
           </div>
 
