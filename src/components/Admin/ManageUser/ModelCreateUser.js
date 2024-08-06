@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { postCreateNewUser } from '../../../services/apiService'
 function ModelCreateUser(props) {
      //Props
      let { show, setShow } = props;
@@ -32,18 +34,42 @@ function ModelCreateUser(props) {
                // setPreviewImage("")
           }
      }
+     const validateEmail = (email) => {
+          return String(email)
+               .toLowerCase()
+               .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+               );
+     };
+     const validatePassword = (pw) => {
 
+          return /[A-Z]/.test(pw) &&
+               /[a-z]/.test(pw) &&
+               /[0-9]/.test(pw) &&
+               /[^A-Za-z0-9]/.test(pw) &&
+               pw.length >= 6;
+
+     }
      const handleSubmitData = async () => {
           //validate
+          let checkEmail = validateEmail(email);
+          let checkPassword = validatePassword(password)
+          if (!checkEmail) {
+               toast.error("Invalid email!")
+               return;
+          }
+          if (!checkPassword) {
+               toast.error("Invalid password!")
+               return;
+          }
+
           //call api
-          const data = new FormData();
-          data.append('email', email);
-          data.append('password', password);
-          data.append('username', username);
-          data.append('role', role);
-          data.append('userImage', image)
-          let res = await axios.post('http://localhost:8081/api/v1/participant', data)
-          console.log("Check res:  ", res)
+          let res = await postCreateNewUser(email, password, username, role, image)
+          console.log("Check res:  ", res.data);
+          if (res.data.EC === 0) {
+               toast.success(res.data.EM)
+               handleClose()
+          }
 
 
      }
