@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Restaurant from "../../../assets/restaurant.jpg";
 import { FcPlus } from "react-icons/fc";
-
-function ModelCreateUser() {
+import axios from 'axios';
+function ModelCreateUser(props) {
+     //Props
+     let { show, setShow } = props;
      //State
-     const [show, setShow] = useState(false);
-
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [username, setUsername] = useState("");
@@ -15,8 +14,14 @@ function ModelCreateUser() {
      const [role, setRole] = useState("USER")
      const [previewImage, setPreviewImage] = useState("");
      //Event function
-     const handleClose = () => setShow(false);
-     const handleShow = () => setShow(true);
+     const handleClose = () => {
+          setShow(false)
+          setEmail("")
+          setPassword("")
+          setUsername("")
+          setRole("USER")
+          setImage("")
+     };
      const handleImageEvent = (Event) => {
           // console.log("Check object:", Event.target.files[0])
           if (Event.target && Event.target.files[0]) {
@@ -24,14 +29,29 @@ function ModelCreateUser() {
                setImage(Event.target.files[0])
           }
           else {
-               setPreviewImage("")
+               // setPreviewImage("")
           }
+     }
+
+     const handleSubmitData = async () => {
+          //validate
+          //call api
+          const data = new FormData();
+          data.append('email', email);
+          data.append('password', password);
+          data.append('username', username);
+          data.append('role', role);
+          data.append('userImage', image)
+          let res = await axios.post('http://localhost:8081/api/v1/participant', data)
+          console.log("Check res:  ", res)
+
+
      }
      return (
           <>
-               <Button variant="warning" onClick={handleShow}>
+               {/* <Button variant="warning" onClick={handleShow}>
                     Create new user
-               </Button>
+               </Button> */}
 
                <Modal
                     show={show}
@@ -107,8 +127,8 @@ function ModelCreateUser() {
                          <Button variant="secondary" onClick={handleClose}>
                               Close
                          </Button>
-                         <Button variant="primary" onClick={handleClose}>
-                              Save
+                         <Button variant="primary" onClick={() => handleSubmitData()}>
+                              Create
                          </Button>
                     </Modal.Footer>
                </Modal>

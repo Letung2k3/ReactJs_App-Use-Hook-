@@ -1,5 +1,34 @@
+$myFont: 16px;
+
 .manage-user-container {
-     .manage-user-content {}
+     padding: 10px 20px;
+
+     .title {
+          font-weight: 600;
+          font-size: 20px;
+          margin-bottom: 10px;
+     }
+
+     .user-content {
+          .btn-add-new {
+               .btn {
+                    display: flex !important;
+                    gap: 5px !important;
+                    align-items: center !important;
+                    width: fit-content !important;
+                    font-size: $myFont !important;
+                    font-weight: 500;
+               }
+          }
+
+          .table-user-container {
+               .title-table {
+                    font-size: $myFont;
+                    font-weight: 500;
+                    margin-top: 15px;
+               }
+          }
+     }
 }
 
 .modal-container {
