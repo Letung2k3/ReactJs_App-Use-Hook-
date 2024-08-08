@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../utils/axiosCustomMize"
 const postCreateNewUser = (email, password, username, role, image) => {
      const data = new FormData();
      data.append('email', email);
@@ -6,6 +6,9 @@ const postCreateNewUser = (email, password, username, role, image) => {
      data.append('username', username);
      data.append('role', role);
      data.append('userImage', image)
-     return axios.post('http://localhost:8081/api/v1/participant', data)
+     return axios.post('api/v1/participant', data)
 }
-export { postCreateNewUser }
+const getUser = () => {
+     return axios.get('api/v1/participant/all')
+}
+export { postCreateNewUser, getUser }

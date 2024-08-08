@@ -2,6 +2,7 @@ import ModelCreateUser from "./ModelCreateUser";
 import "./ManageUser.scss"
 import { FcPlus } from "react-icons/fc";
 import { useState } from "react";
+import TableListUser from "../Table/TableListUser";
 const ManageUser = (props) => {
      const [showModalCreateUser, setShowModalCreateUser] = useState(false);
      const handleShowHide = (value) => {
@@ -17,7 +18,9 @@ const ManageUser = (props) => {
                          <button className="btn btn-warning" onClick={() => setShowModalCreateUser(true)}><FcPlus />Create new user</button>
                     </div>
                     <div className="table-user-container">
-                         <div className="title-table">List users</div>
+                         <div className="table">
+                              <TableListUser />
+                         </div>
                     </div>
                     <ModelCreateUser
                          show={showModalCreateUser}

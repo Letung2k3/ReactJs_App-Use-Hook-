@@ -64,11 +64,14 @@ function ModelCreateUser(props) {
           }
 
           //call api
-          let res = await postCreateNewUser(email, password, username, role, image)
-          console.log("Check res:  ", res.data);
-          if (res.data.EC === 0) {
-               toast.success(res.data.EM)
+          let data = await postCreateNewUser(email, password, username, role, image)
+          console.log("Check res:  ", data);
+          if (data && data.EC === 0) {
+               toast.success(data.EM)
                handleClose()
+          }
+          else if (data && data.EC !== 0) {
+               toast.error(data.EM)
           }
 
 
