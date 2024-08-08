@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { postCreateNewUser } from '../../../services/apiService'
 function ModelCreateUser(props) {
      //Props
-     let { show, setShow } = props;
+     let { show, setShow, fetchData } = props;
      //State
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
@@ -69,6 +69,7 @@ function ModelCreateUser(props) {
           if (data && data.EC === 0) {
                toast.success(data.EM)
                handleClose()
+               await props.fetchData()
           }
           else if (data && data.EC !== 0) {
                toast.error(data.EM)
