@@ -1,15 +1,25 @@
 import ModelCreateUser from "./ModelCreateUser";
+import ModelUpdateUser from "./ModelUpdateUser";
 import "./ManageUser.scss"
 import { FcPlus } from "react-icons/fc";
 import { useEffect, useState } from "react"
 import { getUser } from "../../../services/apiService"
 import TableListUser from "../Table/TableListUser";
 const ManageUser = (props) => {
+     const [listUser, setListUser] = useState([])
      const [showModalCreateUser, setShowModalCreateUser] = useState(false);
+     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+     const [dataUpdate, setDataUpdate] = useState({})
+
+     const handleClickBtnEdit = (user) => {
+          setShowModalUpdateUser(true)
+          setDataUpdate(user)
+          console.log(">>>Check props from table: ", dataUpdate)
+     }
      const handleShowHide = (value) => {
           setShowModalCreateUser(value);
+          setShowModalUpdateUser(value);
      }
-     const [listUser, setListUser] = useState([])
      useEffect(() => {
           fetchData()
      }, [])
@@ -32,13 +42,18 @@ const ManageUser = (props) => {
                     </div>
                     <div className="table-user-container">
                          <div className="table">
-                              <TableListUser listUser={listUser} />
+                              <TableListUser listUser={listUser} handleClickBtnEdit={handleClickBtnEdit} />
                          </div>
                     </div>
                     <ModelCreateUser
                          show={showModalCreateUser}
                          setShow={handleShowHide}
                          fetchData={fetchData}
+                    />
+                    <ModelUpdateUser
+                         show={showModalUpdateUser}
+                         setShow={handleShowHide}
+                         dataUpdate={dataUpdate}
                     />
                </div>
           </div>

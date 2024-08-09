@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
 import { postCreateNewUser } from '../../../services/apiService'
-function ModelCreateUser(props) {
+import _ from "lodash"
+function ModelUpdateUser(props) {
      //Props
-     let { show, setShow } = props;
+     let { show, setShow, dataUpdate } = props;
      //State
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
@@ -14,6 +15,22 @@ function ModelCreateUser(props) {
      const [image, setImage] = useState("");
      const [role, setRole] = useState("USER")
      const [previewImage, setPreviewImage] = useState("");
+
+     //UseEffect for dataUpdate
+     //When state updated then useEffect ran(run passive)
+     useEffect(() => {
+          console.log(">>>>Check useEffect:")
+          if (!_.isEmpty(dataUpdate)) {
+               setEmail(dataUpdate.email)
+               setPassword(dataUpdate.password)
+               setRole(dataUpdate.role)
+               setUsername(dataUpdate.username)
+               if (dataUpdate.image) {
+                    setPreviewImage(`data:image/png;base64,${dataUpdate.image}`)
+               }
+               setImage("")
+          }
+     }, [dataUpdate])
      //Event function
      const handleClose = () => {
           setShow(false)
@@ -68,7 +85,7 @@ function ModelCreateUser(props) {
           if (data && data.EC === 0) {
                toast.success(data.EM)
                handleClose()
-               //Wait  up
+               //Wait  update
                await props.fetchData()
           }
           else if (data && data.EC !== 0) {
@@ -77,6 +94,8 @@ function ModelCreateUser(props) {
 
 
      }
+
+     console.log(">>check data update from parent: ", props.dataUpdate)
      return (
           <>
                {/* <Button variant="warning" onClick={handleShow}>
@@ -91,7 +110,7 @@ function ModelCreateUser(props) {
                     className="modal-container"
                >
                     <Modal.Header closeButton>
-                         <Modal.Title>Create new user</Modal.Title>
+                         <Modal.Title>Update an user</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                          <form className="row g-3">
@@ -101,6 +120,7 @@ function ModelCreateUser(props) {
                                         type="email"
                                         className="form-control"
                                         value={email}
+                                        disabled={true}
                                         id="inputEmail4"
                                         onChange={(Event) => { setEmail(Event.target.value) }}
                                    />
@@ -111,6 +131,7 @@ function ModelCreateUser(props) {
                                         type="password"
                                         className="form-control"
                                         value={password}
+                                        disabled={true}
                                         id="inputPassword4"
                                         onChange={(Event) => { setPassword(Event.target.value) }}
                                    />
@@ -165,4 +186,4 @@ function ModelCreateUser(props) {
           </>
      );
 }
-export default ModelCreateUser;
+export default ModelUpdateUser;

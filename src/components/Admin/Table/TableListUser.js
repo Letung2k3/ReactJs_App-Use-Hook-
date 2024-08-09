@@ -25,7 +25,11 @@ const TableListUser = (props) => {
                                              <td>{item.role}</td>
                                              <td>
                                                   <button className="btn btn-success">View</button>
-                                                  <button className="btn btn-info mx-2">Edit</button>
+                                                  <button
+                                                       className="btn btn-info mx-2"
+                                                       onClick={() => props.handleClickBtnEdit(item)}
+                                                  >
+                                                       Edit</button>
                                                   <button className="btn btn-danger">Delete</button>
                                              </td>
                                         </tr>
