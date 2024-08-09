@@ -2,37 +2,34 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
-import { toast } from 'react-toastify';
-import { putUpdateUser } from '../../../services/apiService'
 import _ from "lodash"
-function ModelUpdateUser(props) {
+function ModelViewUser(props) {
      //Props
-     let { show, setShow, dataUpdate } = props;
+     let { show, setShow, dataView } = props;
      //State
      const [email, setEmail] = useState("");
+     const [password, setPassword] = useState("");
      const [username, setUsername] = useState("");
      const [image, setImage] = useState("");
      const [role, setRole] = useState("USER")
      const [previewImage, setPreviewImage] = useState("");
 
-     //UseEffect for dataUpdate
-     //When state updated then useEffect ran(run passive)
      useEffect(() => {
-          console.log(">>>>Check useEffect:")
-          if (!_.isEmpty(dataUpdate)) {
-               setEmail(dataUpdate.email)
-               setRole(dataUpdate.role)
-               setUsername(dataUpdate.username)
-               if (dataUpdate.image) {
-                    setPreviewImage(`data:image/png;base64,${dataUpdate.image}`)
-               }
+          if (!_.isEmpty(dataView)) {
+               setEmail(dataView.email)
                setImage("")
+               if (dataView.image) {
+                    setPreviewImage(`data:image/png;base64,${dataView.image}`)
+               }
+               setRole(dataView.role)
+               setUsername(dataView.username)
           }
-     }, [dataUpdate])
+     }, [dataView])
      //Event function
      const handleClose = () => {
           setShow(false)
-          props.resetUpdateData()
+
+
      };
      const handleImageEvent = (Event) => {
           // console.log("Check object:", Event.target.files[0])
@@ -44,25 +41,6 @@ function ModelUpdateUser(props) {
                // setPreviewImage("")
           }
      }
-     const handleSubmitData = async () => {
-          //validate
-          //call api
-          let data = await putUpdateUser(dataUpdate.id, username, role, image)
-          console.log("Check res:  ", data);
-          if (data && data.EC === 0) {
-               toast.success(data.EM)
-               handleClose()
-               //Wait  update
-               await props.fetchData()
-          }
-          else if (data && data.EC !== 0) {
-               toast.error(data.EM)
-          }
-
-
-     }
-
-     console.log(">>check data update from parent: ", props.dataUpdate)
      return (
           <>
                {/* <Button variant="warning" onClick={handleShow}>
@@ -77,7 +55,7 @@ function ModelUpdateUser(props) {
                     className="modal-container"
                >
                     <Modal.Header closeButton>
-                         <Modal.Title>Update an user</Modal.Title>
+                         <Modal.Title>View the user</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                          <form className="row g-3">
@@ -86,8 +64,8 @@ function ModelUpdateUser(props) {
                                    <input
                                         type="email"
                                         className="form-control"
+                                        disabled
                                         value={email}
-                                        disabled={true}
                                         id="inputEmail4"
                                         onChange={(Event) => { setEmail(Event.target.value) }}
                                    />
@@ -96,9 +74,11 @@ function ModelUpdateUser(props) {
                                    <label for="inputPassword4" className="form-label">Password</label>
                                    <input
                                         type="password"
-                                        className="form-control"
                                         disabled
+                                        className="form-control"
+                                        value={password}
                                         id="inputPassword4"
+                                        onChange={(Event) => { setPassword(Event.target.value) }}
                                    />
                               </div>
                               <div className="col-md-6">
@@ -106,6 +86,7 @@ function ModelUpdateUser(props) {
                                    <input
                                         type="text"
                                         className="form-control"
+                                        disabled
                                         id="inputAddress"
                                         placeholder="input UserName..."
                                         value={username}
@@ -114,7 +95,7 @@ function ModelUpdateUser(props) {
                               </div>
                               <div className="col-md-4">
                                    <label for="inputState" className="form-label">Role</label>
-                                   <select id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
+                                   <select disabled id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
                                         <option value="USER">USER</option>
                                         <option value="Admin">ADMIN</option>
                                    </select>
@@ -124,6 +105,7 @@ function ModelUpdateUser(props) {
                                         <FcPlus /> Update your image
                                    </label>
                                    <input
+                                        disabled
                                         onChange={(Event) => handleImageEvent(Event)}
                                         type="file"
                                         hidden id='idFile'
@@ -143,12 +125,9 @@ function ModelUpdateUser(props) {
                          <Button variant="secondary" onClick={handleClose}>
                               Close
                          </Button>
-                         <Button variant="primary" onClick={() => handleSubmitData()}>
-                              Submit
-                         </Button>
                     </Modal.Footer>
                </Modal>
           </>
      );
 }
-export default ModelUpdateUser;
+export default ModelViewUser;
