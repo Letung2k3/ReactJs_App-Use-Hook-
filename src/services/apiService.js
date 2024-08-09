@@ -11,4 +11,13 @@ const postCreateNewUser = (email, password, username, role, image) => {
 const getUser = () => {
      return axios.get('api/v1/participant/all')
 }
-export { postCreateNewUser, getUser }
+
+const putUpdateUser = (id, username, role, image) => {
+     const data = new FormData();
+     data.append('id', id);
+     data.append('username', username);
+     data.append('role', role);
+     data.append('userImage', image)
+     return axios.put('api/v1/participant', data)
+}
+export { postCreateNewUser, getUser, putUpdateUser }

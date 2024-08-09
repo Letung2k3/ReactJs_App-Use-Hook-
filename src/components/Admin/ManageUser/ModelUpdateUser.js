@@ -3,14 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import { toast } from 'react-toastify';
-import { postCreateNewUser } from '../../../services/apiService'
+import { postCreateNewUser, putUpdateUser } from '../../../services/apiService'
 import _ from "lodash"
 function ModelUpdateUser(props) {
      //Props
      let { show, setShow, dataUpdate } = props;
      //State
      const [email, setEmail] = useState("");
-     const [password, setPassword] = useState("");
      const [username, setUsername] = useState("");
      const [image, setImage] = useState("");
      const [role, setRole] = useState("USER")
@@ -22,7 +21,6 @@ function ModelUpdateUser(props) {
           console.log(">>>>Check useEffect:")
           if (!_.isEmpty(dataUpdate)) {
                setEmail(dataUpdate.email)
-               setPassword(dataUpdate.password)
                setRole(dataUpdate.role)
                setUsername(dataUpdate.username)
                if (dataUpdate.image) {
@@ -34,11 +32,7 @@ function ModelUpdateUser(props) {
      //Event function
      const handleClose = () => {
           setShow(false)
-          setEmail("")
-          setPassword("")
-          setUsername("")
-          setRole("USER")
-          setImage("")
+          props.resetUpdateData()
      };
      const handleImageEvent = (Event) => {
           // console.log("Check object:", Event.target.files[0])
@@ -50,37 +44,10 @@ function ModelUpdateUser(props) {
                // setPreviewImage("")
           }
      }
-     const validateEmail = (email) => {
-          return String(email)
-               .toLowerCase()
-               .match(
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-               );
-     };
-     const validatePassword = (pw) => {
-
-          return /[A-Z]/.test(pw) &&
-               /[a-z]/.test(pw) &&
-               /[0-9]/.test(pw) &&
-               /[^A-Za-z0-9]/.test(pw) &&
-               pw.length >= 6;
-
-     }
      const handleSubmitData = async () => {
           //validate
-          let checkEmail = validateEmail(email);
-          let checkPassword = validatePassword(password)
-          if (!checkEmail) {
-               toast.error("Invalid email!")
-               return;
-          }
-          if (!checkPassword) {
-               toast.error("Invalid password!")
-               return;
-          }
-
           //call api
-          let data = await postCreateNewUser(email, password, username, role, image)
+          let data = await putUpdateUser(dataUpdate.id, username, role, image)
           console.log("Check res:  ", data);
           if (data && data.EC === 0) {
                toast.success(data.EM)
@@ -130,10 +97,8 @@ function ModelUpdateUser(props) {
                                    <input
                                         type="password"
                                         className="form-control"
-                                        value={password}
-                                        disabled={true}
+                                        disabled
                                         id="inputPassword4"
-                                        onChange={(Event) => { setPassword(Event.target.value) }}
                                    />
                               </div>
                               <div className="col-md-6">
@@ -179,7 +144,7 @@ function ModelUpdateUser(props) {
                               Close
                          </Button>
                          <Button variant="primary" onClick={() => handleSubmitData()}>
-                              Create
+                              Submit
                          </Button>
                     </Modal.Footer>
                </Modal>

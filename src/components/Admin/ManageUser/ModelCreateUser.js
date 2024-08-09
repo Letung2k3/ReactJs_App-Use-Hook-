@@ -68,7 +68,7 @@ function ModelCreateUser(props) {
           if (data && data.EC === 0) {
                toast.success(data.EM)
                handleClose()
-               //Wait  up
+               //Wait
                await props.fetchData()
           }
           else if (data && data.EC !== 0) {

@@ -1,5 +1,6 @@
 
 const TableListUser = (props) => {
+     console.log("Check data at table:", props.listUser)
      let { listUser } = props
      //Same componentDidMount
      return (
