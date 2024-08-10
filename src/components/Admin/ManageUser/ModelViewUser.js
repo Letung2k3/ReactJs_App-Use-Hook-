@@ -29,7 +29,6 @@ function ModelViewUser(props) {
      const handleClose = () => {
           setShow(false)
 
-
      };
      const handleImageEvent = (Event) => {
           // console.log("Check object:", Event.target.files[0])

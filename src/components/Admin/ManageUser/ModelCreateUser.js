@@ -69,7 +69,9 @@ function ModelCreateUser(props) {
                toast.success(data.EM)
                handleClose()
                //Wait
-               await props.fetchData()
+               // await props.fetchData()
+               props.setCurrentPage(1)
+               await props.etchDataPaginate(1)
           }
           else if (data && data.EC !== 0) {
                toast.error(data.EM)

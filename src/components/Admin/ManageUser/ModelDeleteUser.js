@@ -13,7 +13,10 @@ function ModelDeleteUser(props) {
           if (data && data.EC === 0) {
                toast.success(data.EM)
                handleClose();
-               await props.fetchData();
+               //Wait
+               // await props.fetchData()
+               props.setCurrentPage(1)
+               await props.etchDataPaginate(1)
           }
           else if (data && data.EC !== 0) {
                toast.warning(data.EM)
