@@ -3,7 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const Header = (props) => {
+     const navigate = useNavigate();
+     const handleBtnLogin = () => {
+          navigate('/login')
+     }
      return (
           <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                <Container>
@@ -16,7 +21,7 @@ const Header = (props) => {
                               <NavLink to="/Admins" className="nav-link">Admin</NavLink>
                          </Nav>
                          <Nav>
-                              <button className='btn-login'>Log in</button>
+                              <button className='btn-login' onClick={handleBtnLogin}>Log in</button>
                               {/* <NavDropdown title="Setttings " id="collapsible-nav-dropdown">
                                    <NavDropdown.Item >Log in</NavDropdown.Item>
                                    <NavDropdown.Item > Log out</NavDropdown.Item>
