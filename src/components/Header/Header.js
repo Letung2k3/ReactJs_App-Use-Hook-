@@ -9,6 +9,9 @@ const Header = (props) => {
      const handleBtnLogin = () => {
           navigate('/login')
      }
+     const handleBtnRegister = () => {
+          navigate('/signup')
+     }
      return (
           <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                <Container>
@@ -27,7 +30,7 @@ const Header = (props) => {
                                    <NavDropdown.Item > Log out</NavDropdown.Item>
                                    <NavDropdown.Item >Another</NavDropdown.Item>
                               </NavDropdown> */}
-                              <button className='btn-signup'>Sign up</button>
+                              <button className='btn-signup' onClick={handleBtnRegister} >Sign up</button>
                          </Nav>
                     </Navbar.Collapse>
                </Container>

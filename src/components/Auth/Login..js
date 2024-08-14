@@ -7,7 +7,24 @@ const Login = (props) => {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const navigate = useNavigate();
+     const validateEmail = (email) => {
+          return String(email)
+               .toLowerCase()
+               .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+               );
+     };
      const handleLogin = async () => {
+
+          const isValidEmail = validateEmail(email);
+          if (!isValidEmail) {
+               toast.error("Invalid email!");
+               return;
+          }
+          if (!password) {
+               toast.error('Invalid password!');
+               return;
+          }
           let res = await postUserLogin(email, password)
           if (res.EC === 0) {
                await toast.success(res.EM);
@@ -22,7 +39,7 @@ const Login = (props) => {
           <div className="login-container">
                <div className="login-header">
                     Don't have an account yet?
-                    <button className='btn-signup'>Sign up</button>
+                    <button className='btn-signup' onClick={() => navigate('/signup')}>Sign up</button>
                </div>
                <div className="login-tilte col-3 mx-auto">
                     My Website
