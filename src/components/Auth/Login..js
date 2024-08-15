@@ -38,7 +38,7 @@ const Login = (props) => {
                )
                await toast.success(res.EM);
                setIsLoading(false)
-               // navigate('/')
+               navigate('/')
           }
           else if (res.EC !== 0) {
                await toast.error(res.EM)
