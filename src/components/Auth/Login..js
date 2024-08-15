@@ -3,10 +3,15 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { postUserLogin } from '../../services/apiService';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
+import { FaSpinner } from "react-icons/fa";
 const Login = (props) => {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
+     const [isLoading, setIsLoading] = useState(false)
      const navigate = useNavigate();
+     const dispatch = useDispatch()
      const validateEmail = (email) => {
           return String(email)
                .toLowerCase()
@@ -25,13 +30,19 @@ const Login = (props) => {
                toast.error('Invalid password!');
                return;
           }
+          setIsLoading(true)
           let res = await postUserLogin(email, password)
           if (res.EC === 0) {
+               dispatch(
+                    doLogin(res)
+               )
                await toast.success(res.EM);
-               navigate('/Admins')
+               setIsLoading(false)
+               // navigate('/')
           }
           else if (res.EC !== 0) {
                await toast.error(res.EM)
+               setIsLoading(false)
                return;
           }
      }
@@ -68,7 +79,14 @@ const Login = (props) => {
                     </div>
                     <span className='forgot-password'>Forgot password?</span>
 
-                    <button className='form-btn-login' onClick={() => handleLogin()}>Login with TypeForm</button>
+                    <button className='form-btn-login'
+                         onClick={() => handleLogin()}
+                         disabled={isLoading}
+                    >
+
+                         {isLoading === true && <FaSpinner className="icon-spin" />}
+                         <span>Login with TypeForm</span>
+                    </button>
                     <span className='text-center' style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
                          &#62;&#62; Go to homepage
                     </span>

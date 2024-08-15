@@ -1,0 +1,3 @@
+1 declare dispatch + action => react component
+2. declare reducer + logic => reducer
+3. use state of redux

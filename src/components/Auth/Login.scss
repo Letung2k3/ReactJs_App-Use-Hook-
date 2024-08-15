@@ -70,8 +70,28 @@
           border: none;
           border-radius: 5px !important;
 
-          &:hover {
-               background-color: #3d3737 !important;
+
+          .icon-spin {
+               font-size: 16px;
+               animation: spin-animation 0.5s infinite;
+               display: inline-block;
+               margin-right: 10px
+          }
+
+          @keyframes spin-animation {
+               0% {
+                    transform: rotate(0deg);
+               }
+
+               100% {
+                    transform: rotate(359deg);
+               }
+          }
+
+          &:disabled {
+               background-color: #ccc !important;
+               color: #000 !important;
+               cursor: no-drop !important;
           }
      }
 }
