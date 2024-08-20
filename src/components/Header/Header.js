@@ -5,10 +5,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavDropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { persistor } from '../../redux/store';
+import { doLogout } from '../../redux/action/userAction';
 const Header = (props) => {
-     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
-     console.log(`>>Check state from redux isAuthenticated:${isAuthenticated}`)
+     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+     const dispatch = useDispatch();
      const navigate = useNavigate();
      const handleBtnLogin = () => {
           navigate('/login')
@@ -16,6 +18,16 @@ const Header = (props) => {
      const handleBtnRegister = () => {
           navigate('/signup')
      }
+     const handleLogout = () => {
+          // Xóa dữ liệu đã lưu từ redux-persist
+          persistor.purge().then(() => {
+               // Gọi hành động đăng xuất Redux
+               dispatch(doLogout());
+
+               // Chuyển hướng đến trang chính
+               navigate('/');
+          });
+     };
      return (
           <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                <Container>
@@ -36,7 +48,7 @@ const Header = (props) => {
                                    </>
                                    :
                                    <NavDropdown title="Setttings " id="collapsible-nav-dropdown">
-                                        <NavDropdown.Item > Log out</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={handleLogout} > Log out</NavDropdown.Item>
                                         <NavDropdown.Item >Another</NavDropdown.Item>
                                    </NavDropdown>
                               }

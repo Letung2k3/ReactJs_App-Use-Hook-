@@ -8,13 +8,14 @@ import { Routes, Route } from 'react-router-dom';
 import App from '../App';
 import { ToastContainer } from 'react-toastify';
 import Register from '../components/Auth/Register';
+import ListQuizs from '../components/User/ListQuizs';
 const Layout = (props) => {
      return (
           <>
                <Routes>
                     <Route path='/' element={<App />} >
                          <Route index element={<HomePage />} />
-                         <Route path='Users' element={<User />} />
+                         <Route path='Users' element={<ListQuizs />} />
                     </Route>
                     <Route path='/Admins' element={<Admin />}>
                          <Route index element={<DashBoard />} />
