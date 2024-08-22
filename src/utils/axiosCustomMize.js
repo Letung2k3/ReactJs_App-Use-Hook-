@@ -13,6 +13,7 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config) {
      console.log(">>>>Check token: ", store.getState())
      const token = store?.getState()?.user?.account?.access_token;
+     //Bearer token
      config.headers['Authorization'] = `Bearer ${token}`;
      // Do something before request is sent
      nProgress.start();
@@ -25,6 +26,7 @@ instance.interceptors.request.use(function (config) {
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
      console.log("intercentor", response)
+
      nProgress.done();
      // Any status code that lie within the range of 2xx cause this function to trigger
      // Do something with response data
