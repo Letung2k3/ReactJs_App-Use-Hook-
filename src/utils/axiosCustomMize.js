@@ -11,7 +11,7 @@ const instance = axios.create({
      baseURL: 'http://localhost:8081/'
 })
 instance.interceptors.request.use(function (config) {
-     console.log(">>>>Check token: ", store.getState())
+     console.log(">>>>Check tobken: ", store.getState())
      const token = store?.getState()?.user?.account?.access_token;
      //Bearer token
      config.headers['Authorization'] = `Bearer ${token}`;

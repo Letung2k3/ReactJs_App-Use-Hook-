@@ -1,10 +1,15 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom"
 import { getDataQuizz } from "../../services/apiService";
 import _ from "lodash";
+import "./DetailQuiz.scss"
+import Question from "./Question";
 const DetailQuizz = (props) => {
      const param = useParams();
-     const quizzId = param;
+     const location = useLocation();
+     const [dataQuiz, setDataQuiz] = useState([])
+     const [index, setIndex] = useState(0);
+     let quizzId = param;
 
      useEffect(() => {
           fetchDataQuizz();
@@ -14,7 +19,7 @@ const DetailQuizz = (props) => {
           console.log(">>>Check data quizz from axios: ", res)
           if (res && res.EC === 0) {
                let raw = res.DT;
-               _.chain(raw)
+               let data = _.chain(raw)
                     .groupBy("id")
                     .map((value, key) => {
                          let answer = [];
@@ -29,14 +34,32 @@ const DetailQuizz = (props) => {
                          return { questionId: key, answer: answer, questionDescription, image }
                     })
                     .value();
+               setDataQuiz(data)
           }
 
      }
      //take param on URL
      console.log(">>>Check param: ", param);
      return (
-          <div>
-               Detail1
+          <div className="detail-quiz-container">
+               <div className="left-content">
+                    <div className="title">
+                         Quizz 1 {location?.state.quizzTitile}
+                    </div>
+                    <div className="q-body">
+                         <img />
+                    </div>
+                    <div className="q-content">
+                         <Question data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []} />
+                    </div>
+                    <div className="footer">
+                         <button className="btn btn-secondary">Prev</button>
+                         <button className="btn btn-primary">Next</button>
+                    </div>
+               </div>
+               <div className="right-content">
+                    Count down
+               </div>
           </div>
      )
 }
